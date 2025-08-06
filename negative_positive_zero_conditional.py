@@ -3,5 +3,7 @@ if a<0:
     print("The number is negative.")
 elif a>0:
     print("The number is positive.")
-else:
+elif a==0:
     print("The number is zero.")
+else:
+    print("Enter a valid number")
