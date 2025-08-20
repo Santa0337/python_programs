@@ -1,0 +1,72 @@
+testbed:
+    name: CCNA_Router_Testbed
+    credentials:
+        default:
+            username: cisco
+            password: cisco
+        enable:
+            password: cisco
+
+devices:
+    R1:
+        os: ios
+        type: ios
+        connections:
+            a:
+                protocol: telnet
+                ip: 10.10.20.171
+                port: 23
+            ssh:
+                protocol: ssh
+                ip: 10.10.20.171
+                port: 22
+    R2:
+        os: ios
+        type: ios
+        connections:
+            a:
+                protocol: telnet
+                ip: 10.10.20.172
+                port: 23
+            ssh:
+                protocol: ssh
+                ip: 10.10.20.172
+                port: 22
+
+topology:
+    R1:
+        interfaces:
+            Ethernet0/0:
+                ipv4: 10.10.10.100/24
+                link: R1_R2_Link
+                type: ethernet
+            Ethernet0/1:
+                ipv4: 1.1.1.1/24
+                link: R1_R2_WAN
+                type: ethernet
+            Ethernet0/2:
+                ipv4: 10.10.20.171/24
+                link: R1_Mgmt
+                type: ethernet
+            Loopback0:
+                ipv4: 192.168.10.1/32
+                link: R1_Loopback0
+                type: loopback
+    R2:
+        interfaces:
+            Ethernet0/0:
+                ipv4: 20.20.20.100/24
+                link: R1_R2_Link
+                type: ethernet
+            Ethernet0/1:
+                ipv4: 1.1.1.2/24
+                link: R2_R1_WAN
+                type: ethernet
+            Ethernet0/2:
+                ipv4: 10.10.20.172/24
+                link: R1_Mgmt
+                type: ethernet
+            Loopback0:
+                ipv4: 192.168.20.1/32
+                link: R2_Loopback0
+                type: loopback

@@ -1,0 +1,66 @@
+from pyats.topology import Testbed, Device, Interface, Link
+
+# Build Devices
+ios_1 = Device(
+    name='R1',
+    os='ios',
+    type='ios',
+    credentials={
+        'default': {'username': 'cisco', 'password': 'cisco'},
+        'enable': {'password': 'cisco'}
+    },
+    connections={
+        'a': {
+            'protocol': 'telnet',
+            'ip': '10.10.20.171',
+            'port': 23
+        },
+        'ssh': {
+            'protocol': 'ssh',
+            'ip': '10.10.20.171',
+            'port': 22
+        }
+    }
+)
+
+ios_2 = Device(
+    name='R2',
+    os='ios',
+    type='ios',
+    credentials={
+        'default': {'username': 'cisco', 'password': 'cisco'},
+        'enable': {'password': 'cisco'}
+    },
+    connections={
+        'a': {
+            'protocol': 'telnet',
+            'ip': '10.10.20.172',
+            'port': 23
+        },
+        'ssh': {
+            'protocol': 'ssh',
+            'ip': '10.10.20.172',
+            'port': 22
+        }
+    }
+)
+
+# Build Interfaces
+ios_1_int = Interface(name='Ethernet0/2', ipv4='10.10.20.171/24', type='physical')
+ios_2_int = Interface(name='Ethernet0/2', ipv4='10.10.20.172/24', type='physical')
+
+ios_1.interfaces = {'Ethernet0/2': ios_1_int}
+ios_2.interfaces = {'Ethernet0/2': ios_2_int}
+
+# Build Link
+link_1 = Link(name='link-1', interfaces=[ios_1_int, ios_2_int])
+
+# Build Testbed
+testbed = Testbed(
+    name='CCNA_Router_Testbed',
+    devices={'ios-1': ios_1, 'ios-2': ios_2},
+    links={'link-1': link_1},
+)
+
+# Now use testbed as in your code
+# testbed.devices, testbed.devices['ios-1'], etc.
