@@ -62,5 +62,3 @@ testbed = Testbed(
     links={'link-1': link_1},
 )
 
-# Now use testbed as in your code
-# testbed.devices, testbed.devices['ios-1'], etc.

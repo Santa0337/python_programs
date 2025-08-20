@@ -11,10 +11,8 @@ class CommonSetup(aetest.CommonSetup):
         ios1 = testbed.devices[ios1_name]
         ios2 = testbed.devices[ios2_name]
 
-        # add to testscript parameters
         self.parent.parameters.update(R1=ios1, R2=ios2)
 
-        # get links between devices
         links = ios1.find_links(ios2)
         assert len(links) >= 1, 'require one link between ios1 and ios2'
 
@@ -30,16 +28,14 @@ class PingTestcase(aetest.Testcase):
 
     @aetest.test.loop(destination=('10.10.20.171', '10.10.20.172'))
     def ping(self, device, destination):
-        vrf = 'Mgmt-intf'   # <-- change to your actual VRF name if different
+        vrf = 'Mgmt-intf'   
         device_obj = self.parameters[device]
 
-        # Skip self-ping if desired (optional)
+        
         if (device == 'R1' and destination == '10.10.20.171') or \
            (device == 'R2' and destination == '10.10.20.172'):
             self.skipped(f"{device} skipping self-ping")
             return
-
-        # Use VRF-aware ping if address is VRF-bound
         try:
             if destination.startswith("10.10.20."):
                 cmd = f'ping vrf {vrf} {destination}'
