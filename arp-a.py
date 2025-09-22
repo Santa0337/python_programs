@@ -131,4 +131,20 @@ import re
 # out=re.findall(r'\S+\s+((?:\d{1,3}\.){3}\d+)\s+\S+\s+([0-9a-zA-Z\.]+)\s+\S+\s+(\S+)',inp,re.MULTILINE)
 # print(out)
 
+# show ip ospf neighbor
 
+# inp="""
+# Neighbor ID     Pri   State           Dead Time   Address         Interface
+# 3.3.3.3           1   FULL/BDR        00:00:31    10.0.0.2        GigabitEthernet0/0/1
+# """
+# out=re.findall(r'((?:\d{1,3}\.){3}\d+)\s+\d+\s+\S+/\S+\s+\S+\s+((?:\d{1,3}\.){3}\d+)\s+(\S+)',inp,re.MULTILINE)
+# print(out)
+
+
+# show ip route ospf
+# inp="""
+# O    11.0.0.0 [110/2] via 10.0.0.2, 00:04:07, GigabitEthernet0/0/1
+# O    192.168.1.0 [110/3] via 10.0.0.2, 00:04:07, GigabitEthernet0/0/1
+# """
+# out = re.findall(r'O\s+([\d\.]+)\s+\[\d+/\d+\]\s+via\s+([\d\.]+),.*?,\s*(\S+)', inp)
+# print(out)
